@@ -2,7 +2,7 @@
 /*
 Plugin Name: Log cleaner for iThemes Security
 Plugin URI: https://rocketapps.com.au
-Description: Delete iThemes security logs in a single click.
+Description: Delete iThemes Security logs in a single click.
 Version: 1.0
 Author: Michael Ott
 Author Email: hello@michaelott.id.au
