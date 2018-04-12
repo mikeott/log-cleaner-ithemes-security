@@ -1,0 +1,73 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Log cleaner for iThemes Security\n"
+"POT-Creation-Date: 2018-04-13 06:45+0800\n"
+"PO-Revision-Date: 2018-04-13 06:39+0800\n"
+"Last-Translator: Michael Ott <hello@michaelott.id.au>\n"
+"Language-Team: Michael Ott <hello@michaelott.id.au>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: log-cleaner-ithemes.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#. Plugin Name of the plugin/theme
+#: log-cleaner-ithemes.php:63
+msgid "Log cleaner for iThemes Security"
+msgstr ""
+
+#: log-cleaner-ithemes.php:90
+msgid ""
+"Continuing here will delete all iThemes Security logs from the database. You "
+"absolutely can not undo this action. If in doubt, backup your database first."
+msgstr ""
+
+#: log-cleaner-ithemes.php:94
+msgid "Table information"
+msgstr ""
+
+#: log-cleaner-ithemes.php:98
+msgid "Lockouts"
+msgstr ""
+
+#: log-cleaner-ithemes.php:102
+msgid "Logs"
+msgstr ""
+
+#: log-cleaner-ithemes.php:106
+msgid "Temps"
+msgstr ""
+
+#: log-cleaner-ithemes.php:110
+msgid "Total entries"
+msgstr ""
+
+#: log-cleaner-ithemes.php:116
+msgid "This is your last chance. Are you sure?"
+msgstr ""
+
+#: log-cleaner-ithemes.php:116
+msgid "Delete all security logs"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://rocketapps.com.au"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Delete iThemes Security logs in a single click."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Michael Ott"
+msgstr ""

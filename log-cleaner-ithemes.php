@@ -107,7 +107,7 @@ function generate_page_content() { ?>
                 <td><?php echo $num_temps; ?></td>
             </tr>
             <tr>
-                <td><strong><?php _e("Total rows", 'log-cleaner'); ?>:</strong></td>
+                <td><strong><?php _e("Total entries", 'log-cleaner'); ?>:</strong></td>
                 <td><?php echo $total; ?></td>
             </tr>
         </table>
