@@ -113,7 +113,7 @@ function generate_page_content() { ?>
         </table>
         
         <?php if($total !=0) { ?>
-            <p><a href="<?php echo get_admin_url(); ?>tools.php?page=<?php echo $page; ?>&_wpnonce=<?php echo $nonce; ?>&action=clean" class="button button-primary" onclick="return confirm('<?php _e('This is your last chance. Are you sure?', 'log-cleaner'); ?>')"><?php _e('Delete all security logs', 'log-cleaner'); ?></a></p>
+            <p><a href="<?php echo get_admin_url(); ?>tools.php?page=<?php echo $page; ?>&_wpnonce=<?php echo $nonce; ?>&action=clean" class="button button-primary" onclick="return confirm('<?php _e('This is your last chance. Are you sure?', 'log-cleaner'); ?>')"><?php _e('Delete all logs', 'log-cleaner'); ?></a></p>
         <?php } ?>
 
     </div>
