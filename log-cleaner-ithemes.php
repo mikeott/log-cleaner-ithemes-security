@@ -3,7 +3,7 @@
 Plugin Name: Log cleaner for iThemes Security
 Plugin URI: https://rocketapps.com.au
 Description: Delete iThemes Security logs in a single click.
-Version: 1.0
+Version: 1.1
 Author: Michael Ott
 Author Email: hello@michaelott.id.au
 Text Domain: log-cleaner
@@ -27,8 +27,7 @@ function generate_page_content() { ?>
     
     <div class="wrap">
 
-        <?php 
-            // Security
+        <?php
             $action = $_GET['action'];
             $page   = $_GET["page"];
             $nonce  = wp_create_nonce( 'cleaner' );
@@ -52,10 +51,14 @@ function generate_page_content() { ?>
                     $wpdb->query("TRUNCATE TABLE " . $lockouts_table);
                     $wpdb->query("TRUNCATE TABLE " . $log_table);
                     $wpdb->query("TRUNCATE TABLE " . $logs_table);
-                    $wpdb->query("TRUNCATE TABLE " . $temp_table);
+                    $wpdb->query("TRUNCATE TABLE " . $temp_table); ?>
 
-                    echo '<div id="message" class="updated notice notice-success is-dismissible" style="margin: 20px 0;"><p>Security logs deleted.</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
-                }
+                    <div id="message" class="updated notice notice-success is-dismissible" style="margin: 20px 0;">
+                        <p><?php _e("The logs have been deleted.", 'log-cleaner'); ?></p>
+                        <button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php _e("Dismiss this notice.", 'log-cleaner'); ?></span></button>
+                    </div>
+
+                <?php }
 
             }
         ?>
@@ -83,6 +86,8 @@ function generate_page_content() { ?>
             $num_temps  = $wpdb->get_var($temp_query);
 
             $total      = $num_lockouts + $combined + $num_temps;
+
+            global $current_user;
         ?>
 
         <?php if($total !=0) { ?>
@@ -112,8 +117,11 @@ function generate_page_content() { ?>
             </tr>
         </table>
         
-        <?php if($total !=0) { ?>
-            <p><a href="<?php echo get_admin_url(); ?>tools.php?page=<?php echo $page; ?>&_wpnonce=<?php echo $nonce; ?>&action=clean" class="button button-primary" onclick="return confirm('<?php _e('This is your last chance. Are you sure?', 'log-cleaner'); ?>')"><?php _e('Delete all logs', 'log-cleaner'); ?></a></p>
+        <?php  // If the total number of log entries is not 0, and if you're an administrator
+            if($total !=0 && current_user_can( 'manage_options' )) { ?>
+            <p>
+                <a href="<?php echo get_admin_url(); ?>tools.php?page=<?php echo $page; ?>&_wpnonce=<?php echo $nonce; ?>&action=clean" class="button button-primary" onclick="return confirm('<?php _e('This is your last chance. Are you sure?', 'log-cleaner'); ?>')"><?php _e('Delete all logs', 'log-cleaner'); ?></a>
+            </p>
         <?php } ?>
 
     </div>

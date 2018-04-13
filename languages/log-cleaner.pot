@@ -3,10 +3,10 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Log cleaner for iThemes Security\n"
-"POT-Creation-Date: 2018-04-13 06:45+0800\n"
-"PO-Revision-Date: 2018-04-13 06:39+0800\n"
-"Last-Translator: Michael Ott <hello@michaelott.id.au>\n"
-"Language-Team: Michael Ott <hello@michaelott.id.au>\n"
+"POT-Creation-Date: 2018-04-13 10:26+0800\n"
+"PO-Revision-Date: 2018-04-13 10:26+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,43 +21,51 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
+#: log-cleaner-ithemes.php:57
+msgid "The logs have been deleted."
+msgstr ""
+
+#: log-cleaner-ithemes.php:58
+msgid "Dismiss this notice."
+msgstr ""
+
 #. Plugin Name of the plugin/theme
-#: log-cleaner-ithemes.php:63
+#: log-cleaner-ithemes.php:66
 msgid "Log cleaner for iThemes Security"
 msgstr ""
 
-#: log-cleaner-ithemes.php:90
+#: log-cleaner-ithemes.php:95
 msgid ""
 "Continuing here will delete all iThemes Security logs from the database. You "
 "absolutely can not undo this action. If in doubt, backup your database first."
 msgstr ""
 
-#: log-cleaner-ithemes.php:94
+#: log-cleaner-ithemes.php:99
 msgid "Table information"
 msgstr ""
 
-#: log-cleaner-ithemes.php:98
+#: log-cleaner-ithemes.php:103
 msgid "Lockouts"
 msgstr ""
 
-#: log-cleaner-ithemes.php:102
+#: log-cleaner-ithemes.php:107
 msgid "Logs"
 msgstr ""
 
-#: log-cleaner-ithemes.php:106
+#: log-cleaner-ithemes.php:111
 msgid "Temps"
 msgstr ""
 
-#: log-cleaner-ithemes.php:110
+#: log-cleaner-ithemes.php:115
 msgid "Total entries"
 msgstr ""
 
-#: log-cleaner-ithemes.php:116
+#: log-cleaner-ithemes.php:123
 msgid "This is your last chance. Are you sure?"
 msgstr ""
 
-#: log-cleaner-ithemes.php:116
-msgid "Delete all security logs"
+#: log-cleaner-ithemes.php:123
+msgid "Delete all logs"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
