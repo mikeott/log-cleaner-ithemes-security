@@ -96,6 +96,14 @@ function generate_page_content() { ?>
         </div>
         <?php } ?>
 
+        <p>
+            View logs before deleting: 
+            <a href="<?php echo admin_url(); ?>/admin.php?page=itsec-logs&filters=type%7Cimportant">Important Events</a> | 
+            <a href="<?php echo admin_url(); ?>/admin.php?page=itsec-logs&filters=type%7Call">All Events</a> | 
+            <a href="<?php echo admin_url(); ?>/admin.php?page=itsec-logs&filters=type%7Cwarning">Warnings</a> | 
+            <a href="<?php echo admin_url(); ?>/admin.php?page=itsec-logs&filters=type%7Cnotice">Notices</a>
+        </p>
+
         <p><strong><?php _e("Table information", 'log-cleaner'); ?></strong></p>
 
         <table width="150" border="0" cellspacing="2" cellpadding="2">
