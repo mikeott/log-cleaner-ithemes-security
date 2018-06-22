@@ -15,13 +15,13 @@ In a recent update, iThemes removed the ability to delete all database logs ([se
 # How to use
 
   - Go to **Tools** -> **Log cleaner**
-  - Hit the **Delete all logs** button
+  - Select which logs to delete
+  - Hit the **Clear logs** button
   - Get on with the rest of your day
 
 # Todo
 
   - Show current database table log sizes
-  - Improve presentation
  
 # Author
 Michael Ott (@mikeyott)
