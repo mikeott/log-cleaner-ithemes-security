@@ -1,0 +1,26 @@
+.log-cleaner {
+    &.boxy {
+        padding: 25px;
+        background: #fff;
+        margin: 25px 0;
+    }
+
+    p {
+        margin: 0 0 20px 0;
+    }
+}
+
+.lc-table {
+
+    width: 170px;
+
+    td {
+        padding: 5px 0;
+    }
+
+    .lc-total td {
+        border-top: solid 1px #ccc;
+    }
+
+}
+
