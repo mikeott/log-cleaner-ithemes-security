@@ -2,8 +2,8 @@
 /*
 Plugin Name: Log cleaner for iThemes Security
 Plugin URI: https://github.com/mikeott/log-cleaner-ithemes-security
-Description: Delete iThemes Security logs in a single click.
-Version: 1.1
+Description: Delete iThemes Security logs.
+Version: 1.2
 Author: Michael Ott
 Author Email: hello@michaelott.id.au
 Text Domain: log-cleaner
@@ -22,116 +22,156 @@ function create_tools_cleaner_submenu() {
     add_management_page( 'Log cleaner for iThemes Security', 'Log cleaner', 'manage_options', 'log-cleaner', 'generate_page_content' );
 }
 
+// Add custom CSS to admin
+function log_cleaner_admin_style() {
+	$plugin_directory = plugins_url('css/', __FILE__ );
+    wp_enqueue_style('invoice-vehicle-style-admin', $plugin_directory . 'log-cleaner.css');
+}
+add_action('admin_enqueue_scripts', 'log_cleaner_admin_style');
+
 // Admin page.
 function generate_page_content() { ?>
     
     <div class="wrap">
+        <form action="" method="post">
+            <?php
+                $page   = $_GET["page"];
 
-        <?php
-            $action = $_GET['action'];
-            $page   = $_GET["page"];
-            $nonce  = wp_create_nonce( 'cleaner' );
+                if (isset($_POST['submit']) && wp_verify_nonce($_POST['things'], 'delete-things')) {
 
-            if($action == 'clean') {
+                    if (isset($_POST['logs']) || isset($_POST['lockouts']) || isset($_POST['temp'])) {
 
-                $nonce = $_REQUEST['_wpnonce'];
+                        global $wpdb;
+                        $charset_collate    = $wpdb->get_charset_collate();
+                        $lockouts_table     = $wpdb->prefix . 'itsec_lockouts';
+                        $log_table          = $wpdb->prefix . 'itsec_log';
+                        $logs_table         = $wpdb->prefix . 'itsec_logs';
+                        $temp_table         = $wpdb->prefix . 'itsec_temp';
 
-                if ( ! wp_verify_nonce( $nonce, 'cleaner' ) ) {
+                        if (isset($_POST['lockouts']) || isset($_POST['all'])) {
+                            $wpdb->query("TRUNCATE TABLE " . $lockouts_table);
+                        }
 
-                    die( 'Security check' ); 
+                        if (isset($_POST['logs']) || isset($_POST['all'])) {
+                            $wpdb->query("TRUNCATE TABLE " . $log_table);
+                            $wpdb->query("TRUNCATE TABLE " . $logs_table);
+                        }
+                        
+                        if (isset($_POST['temp']) || isset($_POST['all'])) {
+                            $wpdb->query("TRUNCATE TABLE " . $temp_table);
+                        }
+                        ?>
 
-                } else {
+                        <div id="message" class="updated notice notice-success is-dismissible" style="margin: 20px 0;">
+                            <p><?php _e("The selected logs have been deleted.", 'log-cleaner'); ?></p>
+                            <button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php _e("Dismiss this notice.", 'log-cleaner'); ?></span></button>
+                        </div>
 
-                    global $wpdb;
-                    $charset_collate    = $wpdb->get_charset_collate();
-                    $lockouts_table     = $wpdb->prefix . 'itsec_lockouts';
-                    $log_table          = $wpdb->prefix . 'itsec_log';
-                    $logs_table         = $wpdb->prefix . 'itsec_logs';
-                    $temp_table         = $wpdb->prefix . 'itsec_temp';
-                    $wpdb->query("TRUNCATE TABLE " . $lockouts_table);
-                    $wpdb->query("TRUNCATE TABLE " . $log_table);
-                    $wpdb->query("TRUNCATE TABLE " . $logs_table);
-                    $wpdb->query("TRUNCATE TABLE " . $temp_table); ?>
+                    <?php } else { ?>
+                        <div id="message" class="error notice notice-success is-dismissible" style="margin: 20px 0;">
+                            <p><?php _e("You need to select at least one item to delete.", 'log-cleaner'); ?></p>
+                            <button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php _e("Dismiss this notice.", 'log-cleaner'); ?></span></button>
+                        </div>
+                    <?php  }
 
-                    <div id="message" class="updated notice notice-success is-dismissible" style="margin: 20px 0;">
-                        <p><?php _e("The logs have been deleted.", 'log-cleaner'); ?></p>
-                        <button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php _e("Dismiss this notice.", 'log-cleaner'); ?></span></button>
-                    </div>
+                }
+            ?>
 
-                <?php }
+            <h1><?php _e('Log cleaner for iThemes Security', 'log-cleaner'); ?></h1>
 
-            }
-        ?>
+            <?php 
+                global $wpdb;
+                $itsec_lockouts = $wpdb->prefix . 'itsec_lockouts';
+                $lockouts_query = "select count(*) from $itsec_lockouts";
+                $num_lockouts   = $wpdb->get_var($lockouts_query);
 
-        <h1><?php _e('Log cleaner for iThemes Security', 'log-cleaner'); ?></h1>
+                $itsec_log = $wpdb->prefix . 'itsec_log';
+                $log_query = "select count(*) from $itsec_log";
+                $num_log   = $wpdb->get_var($log_query);
 
-        <?php 
-            global $wpdb;
-            $itsec_lockouts = $wpdb->prefix . 'itsec_lockouts';
-            $lockouts_query = "select count(*) from $itsec_lockouts";
-            $num_lockouts   = $wpdb->get_var($lockouts_query);
+                $itsec_logs = $wpdb->prefix . 'itsec_logs';
+                $logs_query = "select count(*) from $itsec_logs";
+                $num_logs   = $wpdb->get_var($logs_query);
 
-            $itsec_log = $wpdb->prefix . 'itsec_log';
-            $log_query = "select count(*) from $itsec_log";
-            $num_log   = $wpdb->get_var($log_query);
+                $combined   = $num_log + $num_logs;
+                
+                $itsec_temp = $wpdb->prefix . 'itsec_temp';
+                $temp_query = "select count(*) from $itsec_temp";
+                $num_temps  = $wpdb->get_var($temp_query);
 
-            $itsec_logs = $wpdb->prefix . 'itsec_logs';
-            $logs_query = "select count(*) from $itsec_logs";
-            $num_logs   = $wpdb->get_var($logs_query);
+                $total      = $num_lockouts + $combined + $num_temps;
 
-            $combined   = $num_log + $num_logs;
+                global $current_user;
+            ?>
 
-            $itsec_temp = $wpdb->prefix . 'itsec_temp';
-            $temp_query = "select count(*) from $itsec_temp";
-            $num_temps  = $wpdb->get_var($temp_query);
+            <p><?php _e("Note: Continuing here will delete the selected iThemes Security logs from the database. You absolutely can not undo this action. If in doubt, backup your database first.", 'log-cleaner'); ?></p>
 
-            $total      = $num_lockouts + $combined + $num_temps;
-
-            global $current_user;
-        ?>
-
-        <?php if($total !=0) { ?>
-        <div id="message" class="notice notice-warning" style="margin: 20px 0;">
-            <p><?php if($action !== 'clean') { _e("Continuing here will delete all iThemes Security logs from the database. You absolutely can not undo this action. If in doubt, backup your database first.", 'log-cleaner'); } ?></p>
-        </div>
-        <?php } ?>
-
-        <p>
-            View logs before deleting: 
-            <a href="<?php echo admin_url(); ?>/admin.php?page=itsec-logs&filters=type%7Cimportant">Important Events</a> | 
-            <a href="<?php echo admin_url(); ?>/admin.php?page=itsec-logs&filters=type%7Call">All Events</a> | 
-            <a href="<?php echo admin_url(); ?>/admin.php?page=itsec-logs&filters=type%7Cwarning">Warnings</a> | 
-            <a href="<?php echo admin_url(); ?>/admin.php?page=itsec-logs&filters=type%7Cnotice">Notices</a>
-        </p>
-
-        <p><strong><?php _e("Table information", 'log-cleaner'); ?></strong></p>
-
-        <table width="150" border="0" cellspacing="2" cellpadding="2">
-            <tr>
-                <td><strong><?php _e("Lockouts", 'log-cleaner'); ?>:</strong></td>
-                <td><?php echo $num_lockouts; ?></td>
-            </tr>
-            <tr>
-                <td><strong><?php _e("Logs", 'log-cleaner'); ?>:</strong></td>
-                <td><?php echo $combined; ?></td>
-            </tr>
-            <tr>
-                <td><strong><?php _e("Temps", 'log-cleaner'); ?>:</strong></td>
-                <td><?php echo $num_temps; ?></td>
-            </tr>
-            <tr>
-                <td><strong><?php _e("Total entries", 'log-cleaner'); ?>:</strong></td>
-                <td><?php echo $total; ?></td>
-            </tr>
-        </table>
-        
-        <?php  // If the total number of log entries is not 0, and if you're an administrator
-            if($total !=0 && current_user_can( 'manage_options' )) { ?>
             <p>
-                <a href="<?php echo get_admin_url(); ?>tools.php?page=<?php echo $page; ?>&_wpnonce=<?php echo $nonce; ?>&action=clean" class="button button-primary" onclick="return confirm('<?php _e('This is your last chance. Are you sure?', 'log-cleaner'); ?>')"><?php _e('Delete all logs', 'log-cleaner'); ?></a>
+                <?php _e("View logs before deleting", 'log-cleaner'); ?>:  
+                <a href="<?php echo admin_url(); ?>/admin.php?page=itsec-logs&filters=type%7Cimportant"><?php _e("Important Events", 'log-cleaner'); ?></a> | 
+                <a href="<?php echo admin_url(); ?>/admin.php?page=itsec-logs&filters=type%7Call"><?php _e("All Events", 'log-cleaner'); ?></a> | 
+                <a href="<?php echo admin_url(); ?>/admin.php?page=itsec-logs&filters=type%7Cwarning"><?php _e("Warnings", 'log-cleaner'); ?></a> | 
+                <a href="<?php echo admin_url(); ?>/admin.php?page=itsec-logs&filters=type%7Cnotice"><?php _e("Notices", 'log-cleaner'); ?></a>
             </p>
-        <?php } ?>
 
+            <div class="log-cleaner boxy">
+                <p><strong><?php _e("Clear the following log tables: ", 'log-cleaner'); ?></strong></p>
+                <ul>
+                    <li><input type="checkbox" name="all" id="all" /> <?php _e("All", 'log-cleaner'); ?></li>
+                    <li><input type="checkbox" name="logs" /> <?php _e("Security logs", 'log-cleaner'); ?></li>
+                    <li><input type="checkbox" name="lockouts" /> <?php _e("Lockouts", 'log-cleaner'); ?></li>
+                    <li><input type="checkbox" name="temp" /> <?php _e("Temps", 'log-cleaner'); ?></li>
+                </ul>
+                <script>
+                    jQuery('#all').click(function(event) {   
+                        if(this.checked) {
+                            // Iterate each checkbox
+                            jQuery(':checkbox').each(function() {
+                                this.checked = true;                        
+                            });
+                        } else {
+                            jQuery(':checkbox').each(function() {
+                                this.checked = false;                       
+                            });
+                        }
+                    });
+                </script>
+            </div>
+
+            <div class="log-cleaner boxy">
+
+                <?php if($total > 0) { ?>
+                    <p><strong><?php _e("Table information:", 'log-cleaner'); ?></strong></p>
+                <?php } else { ?>
+                    <p><strong><?php _e("All log tables are clear. Now get on with the rest of your day.", 'log-cleaner'); ?></strong></p>
+                <?php } ?>
+
+                <table border="0" cellspacing="0" cellpadding="2" class="lc-table">
+                    <tr>
+                        <td><?php _e("Logs", 'log-cleaner'); ?>:</td>
+                        <td><?php echo $combined; ?></td>
+                    </tr>
+                    <tr>
+                        <td><?php _e("Lockouts", 'log-cleaner'); ?>:</td>
+                        <td><?php echo $num_lockouts; ?></td>
+                    </tr>
+                    <tr>
+                        <td><?php _e("Temps", 'log-cleaner'); ?>:</td>
+                        <td><?php echo $num_temps; ?></td>
+                    </tr>
+                    <tr class="lc-total">
+                        <td><strong><?php _e("Total entries", 'log-cleaner'); ?>:</strong></td>
+                        <td><?php echo $total; ?></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <?php  // If the total number of log entries is not 0, and if you're an administrator
+                if(current_user_can( 'manage_options' )) { ?>
+                <input type="submit" name="submit" class="button button-primary" value="<?php _e('Clear logs', 'log-cleaner'); ?>" onclick="return confirm('<?php _e('This is your last chance. Are you sure?', 'log-cleaner'); ?>')" />
+                <?php wp_nonce_field( 'delete-things','things' ) ?>
+            <?php } ?>
+        </form>
     </div>
 
 <?php }
