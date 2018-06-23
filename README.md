@@ -4,7 +4,7 @@ In a recent update, iThemes removed the ability to delete all database logs ([se
 
 **Note: This WordPress plugin comes with absolutelty no warranty of any kind. Although it has passed my own testing on a handful of websites, using it is at your own risk. Always backup your database first, just in case.**
 
-[![N|Solid](https://i.imgur.com/cbk1jqN.png)](https://rocketapps.com.au/)
+[![N|Solid](https://raw.githubusercontent.com/mikeott/log-cleaner-ithemes-security/master/screenshot.png)](https://rocketapps.com.au/)
 
 # Installation
 
