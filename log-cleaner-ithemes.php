@@ -161,7 +161,7 @@ function generate_page_content() { ?>
                     </tr>
                     <tr class="lc-total">
                         <td><strong><?php _e("Total entries", 'log-cleaner'); ?>:</strong></td>
-                        <td><?php echo $total; ?></td>
+                        <td><strong><?php echo $total; ?></strong></td>
                     </tr>
                 </table>
             </div>
