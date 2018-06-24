@@ -25,7 +25,7 @@ function create_tools_cleaner_submenu() {
 // Add custom CSS to admin
 function log_cleaner_admin_style() {
 	$plugin_directory = plugins_url('css/', __FILE__ );
-    wp_enqueue_style('invoice-vehicle-style-admin', $plugin_directory . 'log-cleaner.css');
+    wp_enqueue_style('log-cleaner-style-admin', $plugin_directory . 'log-cleaner.css');
 }
 add_action('admin_enqueue_scripts', 'log_cleaner_admin_style');
 
