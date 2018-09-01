@@ -19,7 +19,7 @@ add_action( 'plugins_loaded', 'load_log_cleaner_textdomain' );
 // Create admin page under the Tools menu.
 add_action('admin_menu', 'create_tools_cleaner_submenu');
 function create_tools_cleaner_submenu() {
-    add_management_page( 'iThemes Security Log cleaner', 'iThemes Security Log cleaner', 'manage_options', 'log-cleaner', 'generate_page_content' );
+    add_management_page( 'Log cleaner for iThemes Security', 'Log cleaner for iThemes Security', 'manage_options', 'log-cleaner', 'generate_page_content' );
 }
 
 // Add custom CSS to admin
