@@ -2,7 +2,7 @@
 
 In a recent update, iThemes removed the ability to delete all database logs ([see this thread](https://wordpress.org/support/topic/latest-update-missing-a-button-to-clear-logs/)). This plugin gives you that control back.
 
-**Note 1: This plugin is now [hosted here](https://wordpress.org/plugins/log-cleaner-for-ithemes-security/) at the official WordPress repo, and and future maintenance and updates will be carried out there.**
+**Note 1: This plugin is now [hosted at the official WordPress repo](https://wordpress.org/plugins/log-cleaner-for-ithemes-security/). Future maintenance and updates will be carried out there.**
 
 **Note 2: This WordPress plugin comes with absolutelty no warranty of any kind. Although it has passed my own testing on a handful of websites, using it is at your own risk. Always backup your database first, just in case.**
 
