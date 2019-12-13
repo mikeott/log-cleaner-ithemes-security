@@ -31,4 +31,4 @@ https://rocketapps.com.au/
 
 # License
 
-MIT FTW! (https://opensource.org/licenses/MIT
+MIT FTW! (https://opensource.org/licenses/MIT)
